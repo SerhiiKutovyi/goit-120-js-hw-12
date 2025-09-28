@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixabay Image Search</title>
     <script type="module" crossorigin src="/goit-120-js-hw-12/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-120-js-hw-12/assets/vendor-ngrFHoWO.js">
-    <link rel="stylesheet" crossorigin href="/goit-120-js-hw-12/assets/index-Bq9QNJ7H.css">
+    <link rel="modulepreload" crossorigin href="/goit-120-js-hw-12/assets/vendor-DA0uMjGz.js">
+    <link rel="stylesheet" crossorigin href="/goit-120-js-hw-12/assets/vendor-BENGQlLI.css">
+    <link rel="stylesheet" crossorigin href="/goit-120-js-hw-12/assets/index-VKGyaSqW.css">
   </head>
   <body>
     <main>
-      <div class="loader-position hidden"><span class="loader"></div></div>
+      <div class="loader-gallery hidden">
+        <span class="loader"></span>
+      </div>
       <section class="section container">
         <form class="form">
           <label>
@@ -23,9 +26,12 @@
               required
             />
           </label>
-          <button class="form-btn" type="submit">Search</button>
+          <button class="btn form-btn" type="submit">Search</button>
         </form>
         <ul class="gallery"></ul>
+        <button id="load-more" class="btn load-more-btn hidden" type="button">
+          Load more
+        </button>
       </section>
     </main>
   </body>
