@@ -9,7 +9,9 @@
   </head>
   <body>
     <main>
-      <div class="loader-position hidden"><span class="loader"></div></div>
+      <div class="loader-gallery hidden">
+        <span class="loader"></span>
+      </div>
       <section class="section container">
         <form class="form">
           <label>
@@ -21,9 +23,12 @@
               required
             />
           </label>
-          <button class="form-btn" type="submit">Search</button>
+          <button class="btn form-btn" type="submit">Search</button>
         </form>
         <ul class="gallery"></ul>
+        <button id="load-more" class="btn load-more-btn hidden" type="button">
+          Load more
+        </button>
       </section>
     </main>
     <script type="module" src="./main.js"></script>

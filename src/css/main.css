@@ -37,18 +37,6 @@
 
 .form-btn {
   margin-left: 8px;
-  padding: 8px 16px;
-
-  border-radius: 8px;
-  border: none;
-
-  color: #fff;
-  background-color: #4e75ff;
-
-  &:hover,
-  &:focus {
-    background-color: #6c8cff;
-  }
 }
 
 .gallery {
@@ -56,6 +44,8 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
+
+  margin-bottom: 32px;
 }
 
 .gallery img {
@@ -93,4 +83,9 @@
   line-height: 24px;
   letter-spacing: 0.04em;
   color: #2e2f42;
+}
+
+.load-more-btn {
+  display: block;
+  margin: 0 auto;
 }

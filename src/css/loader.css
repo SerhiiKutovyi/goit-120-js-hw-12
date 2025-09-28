@@ -1,8 +1,4 @@
-.hidden {
-  display: none;
-}
-
-.loader-position {
+.loader-gallery {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -20,6 +16,7 @@
   box-sizing: border-box;
   animation: rotation 2s linear infinite;
 }
+
 .loader::after {
   content: '';
   box-sizing: border-box;
