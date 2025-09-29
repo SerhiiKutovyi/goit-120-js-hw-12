@@ -89,3 +89,7 @@
   display: block;
   margin: 0 auto;
 }
+
+.hidden-btn {
+  display: none;
+}

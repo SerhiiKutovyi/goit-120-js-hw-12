@@ -21,16 +21,13 @@ const refs = {
 };
 
 let page = 1;
+let query = '';
 
-hideLoadMoreButton(refs.buttonLoadMore);
-
-refs.form.addEventListener('submit', handleSubmit);
-// refs.buttonLoadMore.addEventListener('click', showLoadMoreButton);
-
-async function handleSubmit(e) {
+refs.form.addEventListener('submit', async e => {
   e.preventDefault();
 
-  const query = e.target.elements.search.value.trim();
+  const queryEle = e.target.elements.search.value.trim();
+  query = queryEle;
 
   clearGallery(refs.gallery);
 
@@ -40,9 +37,10 @@ async function handleSubmit(e) {
 
   showLoader(refs.loader);
   btnDisabled(refs.button);
+  hideLoadMoreButton(refs.buttonLoadMore);
 
   try {
-    const { hits } = await getImagesByQuery(`${query}`, page);
+    const { hits } = await getImagesByQuery(queryEle, page);
 
     if (hits.length === 0) {
       iziToast.show({
@@ -53,15 +51,28 @@ async function handleSubmit(e) {
         message:
           'Sorry, there are no images matching </br> your search query. Please try again!',
       });
-      hideLoadMoreButton(refs.buttonLoadMore);
+      formReset(refs.form);
+      return;
     }
 
     createGallery(hits, refs.gallery);
+    showLoadMoreButton(refs.buttonLoadMore);
   } catch (error) {
     console.log(error.message);
   } finally {
     hideLoader(refs.loader);
-    formReset(refs.form);
+
     btnEnabled(refs.button);
   }
-}
+});
+
+refs.buttonLoadMore.addEventListener('click', async () => {
+  page += 1;
+
+  try {
+    const data = await getImagesByQuery(query, page);
+    createGallery(data.hits, refs.gallery);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
