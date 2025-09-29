@@ -51,7 +51,6 @@ refs.form.addEventListener('submit', async e => {
         message:
           'Sorry, there are no images matching </br> your search query. Please try again!',
       });
-      formReset(refs.form);
       return;
     }
 
@@ -61,7 +60,7 @@ refs.form.addEventListener('submit', async e => {
     console.log(error.message);
   } finally {
     hideLoader(refs.loader);
-
+    formReset(refs.form);
     btnEnabled(refs.button);
   }
 });
@@ -71,8 +70,23 @@ refs.buttonLoadMore.addEventListener('click', async () => {
 
   try {
     const data = await getImagesByQuery(query, page);
+
+    if (page >= 35) {
+      iziToast.show({
+        position: 'topRight',
+        iconUrl: './img/Group (1).svg',
+        messageColor: 'rgba(255, 255, 255, 1)',
+        color: 'rgba(239, 64, 64, 1)',
+        message:
+          'Sorry, there are no images matching </br> your search query. Please try again!',
+      });
+      hideLoadMoreButton(refs.buttonLoadMore);
+      page = 1;
+      return;
+    }
+
     createGallery(data.hits, refs.gallery);
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 });
