@@ -48,9 +48,19 @@
   margin-bottom: 32px;
 }
 
-.gallery img {
+.gallery-img-item {
   width: 360px;
   height: 200px;
+}
+
+.box-img {
+  height: 152px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .gallery-wrapper-text {

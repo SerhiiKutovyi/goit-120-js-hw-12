@@ -16,10 +16,13 @@ export function createGallery(data, gallery) {
         downloads,
       }) => {
         return `
-       <li class='gallery-img-item'>
-        <a href='${largeImageURL}'>
+        <li class='gallery-img-item'>
+        <div class="box-img">
+         <a href='${largeImageURL}'>
           <img src="${webformatURL}" alt="${tags} "/>
-        </a>
+         </a>
+        </div>
+     
         <div class='gallery-wrapper-text'>
           <p class='gallery-img-text'>Likes <span class='gallery-span'>${likes}</span></p>
           <p class='gallery-img-text'>Views<span class='gallery-span'>${views}</span></p>

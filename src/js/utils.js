@@ -9,3 +9,10 @@ export const btnEnabled = off => {
 export const formReset = active => {
   active.reset();
 };
+
+export const windowScrollBy = height => {
+  window.scrollBy({
+    top: height * 2,
+    behavior: 'smooth',
+  });
+};
