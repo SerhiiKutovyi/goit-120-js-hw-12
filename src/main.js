@@ -10,7 +10,7 @@ import {
   showLoadMoreButton,
   hideLoadMoreButton,
 } from './js/render-functions';
-import { formReset, btnDisabled, btnEnabled, windowScrollBy } from './js/utils';
+import { btnDisabled, btnEnabled, windowScrollBy } from './js/utils';
 
 const refs = {
   form: document.querySelector('.form'),
@@ -84,15 +84,15 @@ refs.form.addEventListener('submit', async e => {
 });
 
 refs.buttonLoadMore.addEventListener('click', async () => {
-  page += 1;
-
   btnDisabled(refs.buttonLoadMore);
-  showLoader(refs.loader);
 
+  page += 1;
   try {
-    const data = await getImagesByQuery(query, page);
+    const { totalHits, hits } = await getImagesByQuery(query, page);
 
-    if (page >= data.totalHits) {
+    const totalPages = Math.ceil(totalHits / hits.length);
+
+    if (page >= totalPages) {
       iziToast.show({
         position: 'topRight',
         iconUrl: './img/Group (1).svg',
@@ -104,7 +104,8 @@ refs.buttonLoadMore.addEventListener('click', async () => {
       hideLoadMoreButton(refs.buttonLoadMore);
       return;
     }
-    createGallery(data.hits, refs.gallery);
+    createGallery(hits, refs.gallery);
+    showLoader(refs.loader);
 
     const firstItem = document.querySelector('.gallery-img-item');
 
@@ -114,6 +115,7 @@ refs.buttonLoadMore.addEventListener('click', async () => {
       windowScrollBy(height);
     }
   } catch (error) {
+    hideLoadMoreButton(refs.buttonLoadMore);
     iziToast.show({
       position: 'topRight',
       iconUrl: './img/Group (1).svg',

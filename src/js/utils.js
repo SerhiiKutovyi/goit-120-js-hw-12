@@ -6,10 +6,6 @@ export const btnEnabled = off => {
   off.disabled = false;
 };
 
-export const formReset = active => {
-  active.reset();
-};
-
 export const windowScrollBy = height => {
   window.scrollBy({
     top: height * 2,
