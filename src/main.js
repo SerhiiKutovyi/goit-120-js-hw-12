@@ -22,6 +22,7 @@ const refs = {
 
 let page = 1;
 let query = '';
+const PER_PAGE = 15;
 
 refs.form.addEventListener('submit', async e => {
   e.preventDefault();
@@ -53,9 +54,9 @@ refs.form.addEventListener('submit', async e => {
   btnDisabled(refs.button);
 
   try {
-    const { hits } = await getImagesByQuery(queryEle, page);
+    const { hits, totalHits } = await getImagesByQuery(queryEle, page);
 
-    if (hits.length === 0) {
+    if (!hits || hits.length === 0) {
       iziToast.show({
         position: 'topRight',
         iconUrl: './img/Group (1).svg',
@@ -68,7 +69,21 @@ refs.form.addEventListener('submit', async e => {
     }
 
     createGallery(hits, refs.gallery);
-    showLoadMoreButton(refs.buttonLoadMore);
+
+    const totalPages = Math.ceil(totalHits / PER_PAGE);
+
+    if (totalPages > 1) {
+      showLoadMoreButton(refs.buttonLoadMore);
+    } else {
+      hideLoadMoreButton(refs.buttonLoadMore);
+      iziToast.show({
+        position: 'topRight',
+        iconUrl: './img/Group (1).svg',
+        messageColor: 'rgba(255, 255, 255, 1)',
+        color: 'rgba(235, 238, 66, 1)',
+        message: "You've reached the end of search results.",
+      });
+    }
   } catch (error) {
     iziToast.show({
       position: 'topRight',
@@ -85,33 +100,35 @@ refs.form.addEventListener('submit', async e => {
 
 refs.buttonLoadMore.addEventListener('click', async () => {
   btnDisabled(refs.buttonLoadMore);
+  showLoader(refs.loader);
 
   page += 1;
   try {
     const { totalHits, hits } = await getImagesByQuery(query, page);
 
-    const totalPages = Math.ceil(totalHits / hits.length);
+    if (hits && hits.length > 0) {
+      createGallery(hits, refs.gallery);
+    }
+
+    const totalPages = Math.ceil(totalHits / PER_PAGE);
 
     if (page >= totalPages) {
+      hideLoadMoreButton(refs.buttonLoadMore);
       iziToast.show({
         position: 'topRight',
         iconUrl: './img/Group (1).svg',
         messageColor: 'rgba(255, 255, 255, 1)',
-        color: 'rgba(239, 64, 64, 1)',
-        message:
-          'Sorry, there are no images matching </br> your search query. Please try again!',
+        color: 'rgba(235, 238, 66, 1)',
+        message: "You've reached the end of search results.",
       });
-      hideLoadMoreButton(refs.buttonLoadMore);
-      return;
+    } else {
+      showLoadMoreButton(refs.buttonLoadMore);
     }
-    createGallery(hits, refs.gallery);
-    showLoader(refs.loader);
 
     const firstItem = document.querySelector('.gallery-img-item');
 
     if (firstItem) {
       const { height } = firstItem.getBoundingClientRect();
-
       windowScrollBy(height);
     }
   } catch (error) {
