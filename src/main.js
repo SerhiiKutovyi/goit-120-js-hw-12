@@ -1,6 +1,8 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+import errorIcon from './img/Group (1).svg';
+
 import { getImagesByQuery } from './js/pixabay-api';
 import {
   createGallery,
@@ -40,7 +42,7 @@ refs.form.addEventListener('submit', async e => {
 
     iziToast.show({
       position: 'topRight',
-      iconUrl: './img/Group (1).svg',
+      iconUrl: errorIcon,
       messageColor: 'rgba(255, 255, 255, 1)',
       color: 'rgba(239, 64, 64, 1)',
       message:
@@ -59,7 +61,7 @@ refs.form.addEventListener('submit', async e => {
     if (!hits || hits.length === 0) {
       iziToast.show({
         position: 'topRight',
-        iconUrl: './img/Group (1).svg',
+        iconUrl: errorIcon,
         messageColor: 'rgba(255, 255, 255, 1)',
         color: 'rgba(239, 64, 64, 1)',
         message:
@@ -78,7 +80,7 @@ refs.form.addEventListener('submit', async e => {
       hideLoadMoreButton(refs.buttonLoadMore);
       iziToast.show({
         position: 'topRight',
-        iconUrl: './img/Group (1).svg',
+        iconUrl: errorIcon,
         messageColor: 'rgba(255, 255, 255, 1)',
         color: 'rgba(235, 238, 66, 1)',
         message: "You've reached the end of search results.",
@@ -87,7 +89,7 @@ refs.form.addEventListener('submit', async e => {
   } catch (error) {
     iziToast.show({
       position: 'topRight',
-      iconUrl: './img/Group (1).svg',
+      iconUrl: errorIcon,
       messageColor: 'rgba(255, 255, 255, 1)',
       color: 'rgba(239, 64, 64, 1)',
       message: `${error.message}`,
@@ -116,7 +118,7 @@ refs.buttonLoadMore.addEventListener('click', async () => {
       hideLoadMoreButton(refs.buttonLoadMore);
       iziToast.show({
         position: 'topRight',
-        iconUrl: './img/Group (1).svg',
+        iconUrl: errorIcon,
         messageColor: 'rgba(255, 255, 255, 1)',
         color: 'rgba(235, 238, 66, 1)',
         message: "You've reached the end of search results.",
@@ -135,7 +137,7 @@ refs.buttonLoadMore.addEventListener('click', async () => {
     hideLoadMoreButton(refs.buttonLoadMore);
     iziToast.show({
       position: 'topRight',
-      iconUrl: './img/Group (1).svg',
+      iconUrl: errorIcon,
       messageColor: 'rgba(255, 255, 255, 1)',
       color: 'rgba(239, 64, 64, 1)',
       message: `${error.message}`,
